@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>证件OCR识别系统</title>
+    <!-- 引入Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <!-- 引入移动端样式文件 -->
+    <link rel="stylesheet" href="/mobile/static/css/mobile.css">
+</head>
+<body>
+    <div id="app">
+        <div class="mobile-container">
+            <!-- 订单信息描述区域 -->
+            <div class="section">
+                <div class="section-title">订单信息描述</div>
+                <textarea 
+                    v-model="inputText" 
+                    placeholder="请输入订单相关信息..."
+                    class="field-textarea"
+                ></textarea>
+                <div class="progress-bar" v-if="orderProgress > 0">
+                    <div class="progress-inner" :style="{width: orderProgress + '%'}"></div>
+                </div>
+                <div class="progress-text" v-if="orderProgress > 0">{{orderProgressText}}</div>
+                <button class="primary-btn" @click="processText" :disabled="!inputText.trim() || isProcessing">
+                    {{isProcessing ? '处理中...' : '解析文本'}}
+                </button>
+            </div>
+
+            <!-- 订单信息提取区域 -->
+            <div class="section">
+                <div class="section-title">订单信息提取</div>
+                <div class="field-group">
+                    <label class="field-label">货物重量</label>
+                    <input class="field-input" v-model="orderInfo.weight" placeholder="请输入货物重量" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">货物方量</label>
+                    <input class="field-input" v-model="orderInfo.volume" placeholder="请输入货物方量" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">客户地点</label>
+                    <input class="field-input" v-model="orderInfo.location" placeholder="请输入客户地点" />
+                </div>
+            </div>
+
+            <!-- 证件上传区域 -->
+            <div class="section">
+                <div class="section-title">证件上传</div>
+                
+                <!-- 驾驶证上传 -->
+                <div class="upload-section">
+                    <div class="upload-title">驾驶证上传</div>
+                    <div class="upload-tip">用于提取司机姓名、身份证号、有效期（可批量选择，支持从图库选择）</div>
+                    <div class="upload-area" @click="chooseDriverLicenseImages" v-if="!driverLicenseImages.length">
+                        <div class="upload-icon">+</div>
+                        <div class="upload-text">点击上传驾驶证</div>
+                    </div>
+                    <div class="preview-list" v-if="driverLicenseImages.length">
+                        <div class="preview-item" v-for="(image, index) in driverLicenseImages" :key="index">
+                            <img :src="image.url" class="preview-image" alt="驾驶证预览"/>
+                            <div class="preview-status" :class="image.status">{{image.statusText}}</div>
+                            <div class="preview-actions">
+                                <button v-if="image.status === 'error'" class="action-btn retry-btn" @click="retryUploadImage(image)">
+                                    重试
+                                </button>
+                                <button class="action-btn delete-btn" @click="deleteImage('driver', index)">
+                                    删除
+                                </button>
+                            </div>
+                        </div>
+                        <div class="add-more-btn" @click="chooseDriverLicenseImages">
+                            <span>+</span> 添加更多
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 行驶证上传 -->
+                <div class="upload-section">
+                    <div class="upload-title">行驶证上传</div>
+                    <div class="upload-tip">用于提取车牌号、车辆信息等（可批量选择，支持上传正副页）</div>
+                    <div class="upload-area" @click="chooseVehicleLicenseImages" v-if="!vehicleLicenseImages.length">
+                        <div class="upload-icon">+</div>
+                        <div class="upload-text">点击上传行驶证</div>
+                    </div>
+                    <div class="preview-list" v-if="vehicleLicenseImages.length">
+                        <div class="preview-item" v-for="(image, index) in vehicleLicenseImages" :key="index">
+                            <img :src="image.url" class="preview-image" alt="行驶证预览"/>
+                            <div class="preview-status" :class="image.status">{{image.statusText}}</div>
+                            <div class="preview-actions">
+                                <button v-if="image.status === 'error'" class="action-btn retry-btn" @click="retryUploadImage(image)">
+                                    重试
+                                </button>
+                                <button class="action-btn delete-btn" @click="deleteImage('vehicle', index)">
+                                    删除
+                                </button>
+                            </div>
+                        </div>
+                        <div class="add-more-btn" @click="chooseVehicleLicenseImages">
+                            <span>+</span> 添加更多
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 证件信息显示区域 -->
+            <div class="section">
+                <div class="section-title">证件信息</div>
+                <div class="field-group">
+                    <label class="field-label">司机姓名</label>
+                    <input class="field-input" v-model="licenseInfo.driverName" placeholder="请输入司机姓名" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">身份证号</label>
+                    <input class="field-input" v-model="licenseInfo.idNumber" placeholder="请输入身份证号" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">证件状态</label>
+                    <select class="field-input" v-model="licenseInfo.isValid">
+                        <option value="">请选择</option>
+                        <option v-for="status in validStatus" :key="status" :value="status">{{status}}</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">车牌号</label>
+                    <input class="field-input" v-model="licenseInfo.plateNumber" placeholder="请输入车牌号" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">车辆类型</label>
+                    <input class="field-input" v-model="licenseInfo.vehicleType" placeholder="请输入车辆类型" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">车辆尺寸</label>
+                    <input class="field-input" v-model="licenseInfo.vehicleSize" placeholder="请输入车辆尺寸" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">车辆识别代码</label>
+                    <div class="input-with-button">
+                        <input class="field-input" v-model="licenseInfo.vinCode" placeholder="请输入车辆识别代码" />
+                        <button class="link-btn" @click="openVinCodeQuery" :disabled="!licenseInfo.vinCode">
+                            查询
+                        </button>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">发动机号</label>
+                    <input class="field-input" v-model="licenseInfo.engineNumber" placeholder="请输入发动机号" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">能源类型</label>
+                    <select class="field-input" v-model="licenseInfo.energyType">
+                        <option value="">请选择能源类型</option>
+                        <option v-for="type in energyTypes" :key="type" :value="type">{{type}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 手动补充信息区域 -->
+            <div class="section">
+                <div class="section-title">手动补充信息</div>
+                <div class="field-group">
+                    <label class="field-label"><strong>项目名称</strong></label>
+                    <input class="field-input" v-model="orderInfo.projectName" placeholder="请输入项目名称" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">运价<span class="required-mark">*</span></label>
+                    <input class="field-input" v-model="orderInfo.price" placeholder="请输入运价" />
+                </div>
+                <div class="field-group">
+                    <label class="field-label">运单备注<span class="required-mark">*</span></label>
+                    <textarea class="field-textarea" v-model="orderInfo.remark" placeholder="请输入运单备注" rows="3"></textarea>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">车辆到厂时间</label>
+                    <div class="time-select-group">
+                        <select v-model="arrivalTimeData.year" class="time-select">
+                            <option v-for="year in arrivalTimeYears" :key="year" :value="year">{{year}}年</option>
+                        </select>
+                        <select v-model="arrivalTimeData.month" class="time-select">
+                            <option v-for="month in 12" :key="month" :value="month">{{month}}月</option>
+                        </select>
+                        <select v-model="arrivalTimeData.day" class="time-select">
+                            <option v-for="day in 31" :key="day" :value="day">{{day}}日</option>
+                        </select>
+                        <select v-model="arrivalTimeData.hour" class="time-select">
+                            <option v-for="hour in 24" :key="hour-1" :value="hour-1">{{hour-1}}点</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">车辆轴数<span class="required-mark">*</span></label>
+                    <select class="field-input" v-model="licenseInfo.axleCount">
+                        <option value="">请选择轴数</option>
+                        <option v-for="option in axleOptions" :key="option" :value="option">{{option}}</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">司机手机号<span class="required-mark">*</span></label>
+                    <input class="field-input" v-model="licenseInfo.phoneNumber" placeholder="请输入手机号" type="tel" />
+                </div>
+            </div>
+
+            <!-- 操作按钮区域（正常显示在页面内容中） -->
+            <div class="button-group">
+                <button class="btn btn-primary" @click="mergeInfo">合并信息</button>
+                <button class="btn btn-danger" @click="clearAll">清除信息</button>
+            </div>
+
+            <!-- 合并信息显示区域 -->
+            <div class="section" v-if="mergedInfo">
+                <div class="section-title">合并信息</div>
+                <div class="merged-content">{{mergedInfo}}</div>
+            </div>
+        </div>
+
+        <!-- 提示信息 -->
+        <div class="toast" v-if="showToast" :class="toastType">
+            {{toastMessage}}
+        </div>
+    </div>
+
+    <!-- 引入移动端脚本文件 -->
+    <script src="/mobile/static/js/mobile.js"></script>
+</body>
+</html>

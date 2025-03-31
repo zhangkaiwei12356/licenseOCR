@@ -1,0 +1,462 @@
+/* 主容器样式 */
+.container {
+  padding: 15px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 响应式布局 */
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+  
+  .info-section {
+    padding: 20px;
+  }
+  
+  .field-label {
+    width: 100px;
+  }
+  
+  .section-title {
+    font-size: 18px;
+  }
+}
+
+/* 手动补充信息区域特殊样式 */
+.manual-info-section {
+  background-color: #f0f9ff;
+  border: 1px solid #e1f3ff;
+}
+
+.manual-info-section .section-title {
+  color: #409eff;
+}
+
+/* 输入区域样式 */
+.input-area {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+
+/* 区域标题样式 */
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* 输入框样式 */
+.input-textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  color: #606266;
+  background-color: #fff;
+  margin-bottom: 15px;
+}
+
+/* 上传区域样式 */
+.upload-section {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 上传区域样式 */
+.upload-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+  min-height: 250px;
+}
+
+/* 上传列表样式 */
+.upload-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+/* 上传项样式 */
+.upload-item {
+  width: 48%;
+  height: 250px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: all 0.3s;
+  background-color: #f5f7fa;
+}
+
+/* 单张图片时占满宽度 */
+.upload-item.full-width {
+  width: 100%;
+}
+
+/* 预览图片样式 */
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 10px;
+}
+
+/* 图片信息样式 */
+.image-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image-type {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.image-status {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.image-status.uploading {
+  background: #e6a23c;
+  color: #fff;
+}
+
+.image-status.processing {
+  background: #409eff;
+  color: #fff;
+}
+
+.image-status.success {
+  background: #67c23a;
+  color: #fff;
+}
+
+.image-status.error {
+  background: #f56c6c;
+  color: #fff;
+}
+
+/* 上传添加按钮样式 */
+.upload-add {
+  width: 48%;
+  height: 250px;
+  border: 1px dashed #c0c4cc;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+  transition: all 0.3s;
+}
+
+/* 单张图片时上传按钮占满宽度 */
+.upload-add.full-width {
+  width: 100%;
+}
+
+.upload-icon {
+  font-size: 30px;
+  color: #909399;
+  margin-bottom: 8px;
+}
+
+.upload-text {
+  font-size: 14px;
+  color: #909399;
+}
+
+/* 按钮样式 */
+.primary-btn {
+  width: 80%;
+  height: 44px;
+  line-height: 44px;
+  background-color: #409eff;
+  color: #fff;
+  border-radius: 22px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  transition: all 0.3s;
+  margin: 0 auto;
+  display: block;
+}
+
+.primary-btn:active {
+  background-color: #3a8ee6;
+  transform: scale(0.98);
+}
+
+/* 信息展示区域样式 */
+.info-section {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+
+/* 信息文本框样式 */
+.info-textarea {
+  width: 100%;
+  height: 150px;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+/* 字段项样式 */
+.field-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+/* 字段标签样式 */
+.field-label {
+  width: 90px;
+  font-size: 14px;
+  color: #606266;
+}
+
+/* 字段输入框样式 */
+.field-input {
+  flex: 1;
+  height: 35px;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  white-space: pre-wrap;
+  overflow: auto;
+}
+
+/* 文本域样式 */
+.field-textarea {
+  flex: 1;
+  height: auto;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  resize: vertical;
+  min-height: 60px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  margin-right: 0; /* 修改为0，使其与其他输入框宽度一致 */
+}
+
+/* 手动输入提示样式 */
+.manual-input-tip {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #f56c6c;
+}
+
+/* 操作按钮区域样式 */
+.action-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+}
+
+/* 操作按钮基础样式 */
+.action-btn {
+  width: 45%;
+  height: 44px;
+  line-height: 44px;
+  border-radius: 22px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  transition: all 0.3s;
+}
+
+/* 合并按钮样式 */
+.merge-btn {
+  background-color: #409eff;
+  color: #fff;
+}
+
+.merge-btn:active {
+  background-color: #3a8ee6;
+  transform: scale(0.98);
+}
+
+/* 清除按钮样式 */
+.clear-btn {
+  background-color: #f56c6c;
+  color: #fff;
+}
+
+.clear-btn:active {
+  background-color: #e64242;
+  transform: scale(0.98);
+}
+
+/* 合并信息文本框样式 */
+.merged-textarea {
+  width: 100%;
+  height: 250px;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f5f7fa;
+  font-family: monospace;
+}
+
+/* 选择器样式 */
+.field-select {
+  flex: 1;
+  height: 35px;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* 进度条样式 */
+.progress-bar {
+  height: 3px;
+  background-color: #e4e7ed;
+  border-radius: 1.5px;
+  margin: 10px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-inner {
+  height: 100%;
+  background-color: #409eff;
+  border-radius: 1.5px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  position: absolute;
+  right: 0;
+  top: -15px;
+  font-size: 12px;
+  color: #409eff;
+}
+
+/* 禁用按钮样式 */
+.primary-btn[disabled] {
+  background-color: #a0cfff;
+  opacity: 0.8;
+}
+
+.redirect-btn {
+    width: 20%; /* 调整按钮宽度 */
+    height: 35px; /* 调整按钮高度 */
+    line-height: 35px; /* 调整按钮行高 */
+    background-color: #ff6b6b; /* 设置按钮颜色 */
+    color: white; /* 设置按钮文字颜色 */
+    border-radius: 4px; /* 设置按钮圆角 */
+    font-size: 14px; /* 设置按钮字体大小 */
+    border: none; /* 移除按钮边框 */
+    transition: background-color 0.3s; /* 添加过渡效果 */
+}
+
+.redirect-btn:hover {
+    background-color: #ff5252; /* 鼠标悬停时的颜色 */
+}
+
+/* 添加证件类型标签样式 */
+.license-type-label {
+    font-size: 14px;
+    color: #666;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    border-left: 3px solid #409EFF;
+}
+
+/* 最后一个上传区域不需要底部间距 */
+.upload-section .upload-area:last-of-type {
+    margin-bottom: 0;
+}
+
+/* 添加重新识别按钮样式 */
+.retry-btn {
+    margin-top: 5px;
+    padding: 3px 8px;
+    background-color: #409eff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+    outline: none;
+}
+
+.retry-btn:hover {
+    background-color: #66b1ff;
+}
+
+.retry-btn:active {
+    background-color: #3a8ee6;
+}
+
+/* 时间选择器容器样式 */
+.time-select-container {
+  display: flex;
+  flex: 1;
+  gap: 5px;
+}
+
+/* 时间选择器样式 */
+.time-select {
+  flex: 1;
+  height: 35px;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 0 5px;
+  font-size: 14px;
+  color: #333;
+  text-align-last: center;
+} 

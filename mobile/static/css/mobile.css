@@ -1,0 +1,527 @@
+/* 移动端基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+    background-color: #f8f8f8;
+    line-height: 1.6;
+    color: #333;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 移动端容器 */
+.mobile-container {
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* 区块样式 */
+.section {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* 标题样式 */
+.section-title {
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #000;
+    position: relative;
+    padding-left: 10px;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 4px;
+    background: #07c160;
+    border-radius: 2px;
+}
+
+/* 输入框组样式 */
+.field-group {
+    margin-bottom: 16px;
+}
+
+/* 标签样式 */
+.field-label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* 输入框样式 */
+.field-input {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background: #fff;
+}
+
+.field-input[readonly] {
+    background: #f5f5f5;
+}
+
+/* 文本域样式 */
+.field-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* 上传区域样式 */
+.upload-section {
+    margin-bottom: 20px;
+}
+
+.upload-title {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.upload-tip {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 12px;
+}
+
+.upload-area {
+    border: 1px dashed #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    background: #fafafa;
+    cursor: pointer;
+}
+
+.upload-icon {
+    font-size: 32px;
+    color: #07c160;
+    margin-bottom: 8px;
+}
+
+.upload-text {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 预览列表样式改进，支持多图片展示 */
+.preview-list {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.preview-item {
+    position: relative;
+    background: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.preview-image {
+    width: 100%;
+    display: block;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.preview-status {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+}
+
+.preview-status.success {
+    background: rgba(7,193,96,0.8);
+}
+
+.preview-status.error {
+    background: rgba(255,59,48,0.8);
+}
+
+.preview-status.processing {
+    background: rgba(66,133,244,0.8);
+}
+
+.preview-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    gap: 8px;
+    background: rgba(0,0,0,0.03);
+}
+
+.action-btn {
+    border: none;
+    background: #f2f2f2;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.retry-btn {
+    background: #4285f4;
+    color: white;
+}
+
+.delete-btn {
+    background: #ff3b30;
+    color: white;
+}
+
+.add-more-btn {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background: #f2f2f2;
+    border-radius: 4px;
+    color: #4285f4;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.add-more-btn span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 时间选择器组样式 */
+.time-select-group {
+    display: flex;
+    gap: 8px;
+}
+
+.time-select {
+    flex: 1;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: 14px;
+}
+
+/* 按钮样式 */
+.primary-btn {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    background: #07c160;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 16px;
+}
+
+.primary-btn:disabled {
+    background: #9ed5b5;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 0 15px;
+}
+
+.large-btn {
+    flex: 1;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.merge-btn {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.clear-btn {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.icon {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.merge-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M17 20.41L18.41 19 15 15.59 13.59 17 17 20.41zM7.5 8H11v5.59L5.59 19 7 20.41l6-6V8h3.5L12 3.5 7.5 8z'/%3E%3C/svg%3E");
+}
+
+.clear-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+}
+
+/* 按钮触摸反馈 */
+.large-btn:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+}
+
+/* 按钮适配不同屏幕尺寸 */
+@media (min-width: 400px) {
+    .large-btn {
+        height: 56px;
+        font-size: 18px;
+    }
+    
+    .icon {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media (max-width: 320px) {
+    .action-buttons {
+        gap: 10px;
+    }
+    
+    .large-btn {
+        height: 46px;
+        font-size: 15px;
+    }
+}
+
+/* Toast提示样式 */
+.toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #fff;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+.toast.success {
+    background: rgba(7,193,96,0.9);
+}
+
+.toast.error {
+    background: rgba(255,59,48,0.9);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* 必填标记 */
+.required-mark {
+    color: #ff3b30;
+    margin-left: 4px;
+}
+
+/* 进度条样式 */
+.progress-bar {
+    height: 2px;
+    background: #f2f2f2;
+    margin: 12px 0;
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.progress-inner {
+    height: 100%;
+    background: #07c160;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+/* 合并信息显示区域 */
+.merged-content {
+    font-family: monospace;
+    white-space: pre-wrap;
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 禁用状态 */
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 触摸反馈 */
+button:active {
+    transform: scale(0.98);
+}
+
+/* 适配刘海屏 */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .mobile-container {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* 下拉刷新提示 */
+.pull-refresh-tip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: #909399;
+    font-size: 14px;
+    transform: translateY(-100%);
+    transition: transform 0.3s;
+}
+
+.pull-refresh-tip.active {
+    transform: translateY(0);
+}
+
+/* 加载中动画 */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #409eff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 输入框和按钮组合样式 */
+.input-with-button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.input-with-button .field-input {
+    flex: 1;
+}
+
+.link-btn {
+    padding: 0 12px;
+    height: 40px;
+    line-height: 40px;
+    background: #07c160;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.link-btn:disabled {
+    background: #9ed5b5;
+    cursor: not-allowed;
+}
+
+/* 调整按钮大小 */
+.btn {
+    padding: 10px 20px;  /* 增加内边距 */
+    font-size: 16px;     /* 增加字体大小 */
+    border-radius: 6px;  /* 保持适当的圆角 */
+    margin: 10px 5px;    /* 增加按钮间距 */
+    min-width: 120px;    /* 设置最小宽度 */
+    height: auto;        /* 自动调整高度 */
+    display: inline-flex;/* 使用inline-flex布局 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+}
+
+/* 主要按钮(合并信息)样式调整 */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+/* 危险按钮(清除信息)样式调整 */
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+/* 确保按钮容器有足够的间距 */
+.button-group {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 允许在小屏幕上换行 */
+}
+
+/* 触摸反馈效果 */
+.btn:active {
+    opacity: 0.85;
+}
